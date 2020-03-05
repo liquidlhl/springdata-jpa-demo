@@ -1,0 +1,38 @@
+#server:
+#  port: 8080
+#spring:
+# profiles:
+#   active: prod
+#
+#---
+#server:
+#    port: 8081
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/testJpa?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+          minimum-idle: 10
+          maximum-pool-size: 20
+    type: com.zaxxer.hikari.HikariDataSource
+
+    #建表策略，这里用update，即根据实体更新表结构
+  jpa:
+    hibernate:
+      ddl-auto: update
+#在配置文件中取消自动将驼峰命名转为下划线形式
+#表中字段命名策略,这里要引入hibernate的核心包，不然这个命名策略会报错
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+#        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        #解决mysql主键生成策略auto不自增问题
+      use-new-id-generator-mappings: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect #设置创建表的引擎为InnoDB
+    show-sql: true
+    database: mysql
+
